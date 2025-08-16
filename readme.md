@@ -193,3 +193,18 @@ The first column is the amount of iteration done. Higher is better, the second o
 
 It seems that the unrolled loop version of the surface calculation that uses the interface wins here. Even over the struct switch table and lookup table optimizations.
 
+# What about Perl?
+
+That is a strange question. Perl doesn't care what type of objects you put into an array. There is no type checking on it.
+
+Although technically inheritance exists, but you do not really need it. If you have objects that implement `something()` in an array, you can call that function. You'll just find have to discover at runtime that one of those objects didn't have it.
+
+Does anyone care about the performance cost of polymorphism in Perl? Seems very unlikely. I made a little benchmark anyway.
+
+```
+                                    Rate calculateShapeAreasOOPversion() calculateShapeAreasHashesVersion()
+calculateShapeAreasOOPversion()    553/s                              --                               -40%
+calculateShapeAreasHashesVersion() 915/s                             65%                                 --
+```
+
+I highly advise against concluding anything from this. I just wanted an excuse to see how objects and benchmarks worked in Perl.
